@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/jjanmo/typescript101/issues"
   },
-  "homepage": "https://github.com/jjanmo/typescript101#readme"
+  "homepage": "https://github.com/jjanmo/typescript101#readme",
+  "dependencies": {
+    "@types/lodash": "^4.14.165",
+    "lodash": "^4.17.20"
+  }
 }
