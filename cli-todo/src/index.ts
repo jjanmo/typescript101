@@ -1,12 +1,8 @@
-console.log('hello world!!');
+import { inputText } from './input';
 
-class User {
-  constructor(public id: number) {}
-
-  toStringId() {
-    return `${this.id}`;
-  }
+async function init() {
+  const text = await inputText('입력 : ');
+  console.clear();
 }
 
-const user = new User(123123);
-console.log(user.toStringId());
+init();
