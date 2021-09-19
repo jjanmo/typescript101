@@ -9,7 +9,6 @@ export const inputText = (msg: string): Promise<string> => {
   return new Promise(res => {
     readlineInterface.question(msg, answer => {
       res(answer);
-      readlineInterface.close();
     });
   });
 };
