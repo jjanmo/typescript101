@@ -39,11 +39,11 @@
 > 종합 사용 : src라는 디렉토리를 관찰하다가 변화가 생기면 ts-node 명령어를 통해서 index.js를 실행한다.
 
 ```shell
-  nodemon --watch src --exec 'ts-node' build/index.js
+  nodemon --watch src --exec 'ts-node' src/index.ts
 
   # src/**/* : src 하위 모두라는 의미로 사용 가능
 
-  nodemon --watch '*.ts' --exec 'ts-node' build/index.js
+  nodemon --watch '*.ts' --exec 'ts-node' src/index.ts
 
   # 모든 ts파일을 관찰하는 부분만 바뀐 명령어
 ```
