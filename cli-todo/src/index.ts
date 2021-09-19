@@ -18,7 +18,7 @@ async function init() {
 
     console.log();
     const text = await inputText('원하는 명령을 입력하세요 : ');
-    console.log('text : ', text);
+    console.clear();
 
     const command = commands.find(command => command.key === text);
     if (command) {

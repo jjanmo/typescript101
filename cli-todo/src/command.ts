@@ -1,6 +1,7 @@
 import Table from 'cli-table';
 import { Todos } from './type';
 import { inputText } from './input';
+import { parseDate } from './util';
 
 export abstract class Command {
   constructor(private _key: string, private description: string) {}
@@ -27,7 +28,15 @@ export class CommandPrintTodos extends Command {
     const table = new Table({ head: ['ID', 'Title', 'Description', 'Priority', 'Status', 'Start', 'End'] });
 
     todos.forEach(todo => {
-      const row = [todo.id, todo.title, todo.description, todo.priority, todo.status, todo.startDate, todo.endDate];
+      const row = [
+        todo.id,
+        todo.title,
+        todo.description,
+        todo.priority,
+        todo.status,
+        parseDate(todo.startDate),
+        parseDate(todo.endDate),
+      ];
       table.push(row);
     });
     console.log(table.toString());

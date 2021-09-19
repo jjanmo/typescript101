@@ -5,3 +5,7 @@ export const checkIsValidEnumValue = (enumObject: any, value: number | string): 
     .filter(key => isNaN(Number(key)))
     .some(key => enumObject[key] === value);
 };
+
+export const parseDate = (date: Date): string => {
+  return date.toISOString().substring(0, 10);
+};
