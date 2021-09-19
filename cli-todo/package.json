@@ -16,6 +16,8 @@
     "ts-node": "^10.2.1"
   },
   "dependencies": {
-    "chalk": "^3.0.0"
+    "@types/cli-table": "^0.3.0",
+    "chalk": "^3.0.0",
+    "cli-table": "^0.3.6"
   }
 }
