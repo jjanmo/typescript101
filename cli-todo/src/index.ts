@@ -1,6 +1,14 @@
 import { inputText } from './input';
+import Todo from './todo';
+import { Priority, Todos } from './type';
 
 async function init() {
+  const AppState: Todos = [
+    new Todo('sample test1', 'This is sample test1', new Date(), new Date('2021-09-20'), 'Todo', Priority.High),
+    new Todo('sample test2', 'This is sample test2', new Date(), new Date('2021-09-21'), 'Todo', Priority.Medium),
+    new Todo('sample test3', 'This is sample test3', new Date(), new Date('2021-09-22'), 'Todo', Priority.Low),
+  ];
+
   while (true) {
     console.clear();
     const text = await inputText('원하는 명령을 입력하세요 : ');
