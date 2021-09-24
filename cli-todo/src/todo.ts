@@ -18,8 +18,8 @@ export default class Todo {
     private _description: string,
     private _startDate: Date,
     private _endDate: Date,
-    private _status: TodoState,
     private _priority: Priority,
+    private _status: TodoState = 'Todo',
     private _id: number = Todo.nextId
   ) {
     Todo.nextId++;

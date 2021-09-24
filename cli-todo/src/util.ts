@@ -31,3 +31,33 @@ export const generateTable = (todos: Todos): Table => {
 
   return table;
 };
+
+// 기본 날짜 구하기
+export const getDate = (dateString: string, isEnd: boolean = false) => {
+  if (dateString) {
+    return new Date(dateString);
+  } else {
+    const now = new Date();
+    const tomorrow = new Date(now.setDate(now.getDate() + 1));
+
+    return isEnd ? tomorrow : now;
+  }
+};
+
+// 이넘키값으로 변환하기
+export const convertPriorityString = (string: string) => {
+  switch (string) {
+    case '상': {
+      return 'High';
+    }
+    case '중': {
+      return 'Medium';
+    }
+    case '하': {
+      return 'Low';
+    }
+    default: {
+      return 'Medium';
+    }
+  }
+};
