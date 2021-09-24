@@ -10,7 +10,7 @@
 
 - [ ] Create todo
 - [x] Read todos (All Todo)
-- [ ] Read todo (Specific Todo)
+- [x] Read todo (Specific Todo)
 - [ ] Update todo
 - [ ] Delete todos
 - [ ] Delete todo

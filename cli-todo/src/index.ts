@@ -1,9 +1,9 @@
-import { Command, CommandPrintTodos } from './command';
+import { Command, CommandPrintTodos, CommandPrintTodo } from './command';
 import { inputText } from './input';
 import Todo from './todo';
 import { Priority, Todos } from './type';
 
-const commands: Command[] = [new CommandPrintTodos()];
+const commands: Command[] = [new CommandPrintTodos(), new CommandPrintTodo()];
 
 async function init() {
   const todos: Todos = [

@@ -5,7 +5,7 @@ Type guard : 타입가드는 특정 스코프 안에서 타입을 보장하는 �
 이에 해당하는 몇가지 예시를 살펴본다.
 */
 
-// 1) discriminated union
+// discriminated union
 interface Language {
   type: 1;
   name: string;
