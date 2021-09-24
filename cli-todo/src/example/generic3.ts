@@ -5,6 +5,8 @@
 // A extends B | C
 // → A가 B 혹은 C 에 할당가능해야한다 = A타입이 B타입 혹은 C타입이여야 한다
 
+export {};
+
 interface Person {
   name: string;
   age: number;
@@ -22,7 +24,7 @@ function swapProperty<T extends Person, K extends keyof Person>(p1: T, p2: T, ke
 }
 
 // K extends keyof Person
-// → Person의 속성을 타입으로 할당하는 것을 말한다. = 'name' | 'age'
+// → keyof Person = 'name' | 'age'  : Person의 속성을 유니온 타입으로 나타낸 것
 // → K는 'name' 혹은 'age'에 할당가능 해야한다.
 
 const p1: Person = {
