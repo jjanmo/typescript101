@@ -34,11 +34,18 @@ export {};
 
 function fn1(x: number, y: number | string) {
   const result1: number = x;
-  // const result2: number = y;  // error :
+  // const result2: number = y;  // error
+  // → result2라는 변수의 타입은 number, y의 타입은 number 혹은 string이기 때문에 y가 string인 경우는 result2에 할당할 수 없기때문에 에러
 }
 
 function fn2(x: number | string) {
   const num1: number | string = x;
   const num2: number | string | boolean = x;
-  // const num3: number | boolean = x; // error :
+  // const num3: number | boolean = x; // error
+  // → num3은 number 혹은 boolean 타입, x의 타입은 number 혹은 string이기 때문에 x가 string인 경우는 num3에 할당할 수 없기때문에 에러
 }
+
+/*
+✅ 요약
+- 타입 속성이 더 많을수록 좀 더 구체적인 타입이다. 이를 집합으로 표현하면 범위(원의 크기)가 더 작아진다.
+*/
