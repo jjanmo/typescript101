@@ -28,6 +28,8 @@ class Bar {
   method(input: string): number { ... }
 }
 let foo: Foo = new Bar(); // ERROR!!
+
+✅ type-compatibility2파일에 위 내용의 의미를 좀 더 정확히 이해할 수 있다.
 */
 
 export {};
