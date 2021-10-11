@@ -10,9 +10,9 @@ function fn1(x = 10, y = 'hello') {
 // fn1(10, 20); // 매개변수의 타입 추론에 의한 에러
 // const result: number = fn1; // 리턴값의 타입 추론에 의한 에러
 
-function fn2(n: number) {
-  if (n > 10) return n;
-  else return `${n} is too small`;
+function fn2(symbol: string) {
+  if (symbol !== 'BTC') return symbol;
+  else return `${symbol} is not included`;
 }
 
 // fn2의 리턴값은 자동으로 string | number로 추론된다.
