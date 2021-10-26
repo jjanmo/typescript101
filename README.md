@@ -8,12 +8,11 @@
 
 ### Features
 
-- [ ] Create todo
-- [x] Read todos (All Todo)
-- [x] Read todo (Specific Todo)
+- [x] Add(Create) todo
+- [x] Read todos : 전체 보기
+- [x] Read todo : 특정 할 일 보기
 - [ ] Update todo
-- [ ] Delete todos
-- [ ] Delete todo
+- [ ] Delete todos or todo
 
 ### Summary
 
