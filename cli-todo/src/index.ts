@@ -1,12 +1,17 @@
-import { Command, CommandPrintTodos, CommandPrintTodo, CommandAddTodo } from './command';
+import { Command, CommandPrintTodos, CommandPrintTodo, CommandAddTodo, CommandDelete } from './command';
 import { inputText } from './input';
 import Todo from './todo';
 import { Priority, Todos } from './type';
 
-const commands: Command[] = [new CommandPrintTodos(), new CommandPrintTodo(), new CommandAddTodo()];
+const commands: Command[] = [
+  new CommandPrintTodos(),
+  new CommandPrintTodo(),
+  new CommandAddTodo(),
+  new CommandDelete(),
+];
 
-async function init() {
-  const todos: Todos = [
+async function main() {
+  let todos: Todos = [
     new Todo('sample test1', 'This is sample test1', new Date('2021-09-19'), new Date('2021-09-20'), Priority.High),
     new Todo('sample test2', 'This is sample test2', new Date('2021-09-20'), new Date('2021-09-21'), Priority.Medium),
     new Todo('sample test3', 'This is sample test3', new Date('2021-09-20'), new Date('2021-09-22'), Priority.Low),
@@ -27,4 +32,4 @@ async function init() {
   }
 }
 
-init();
+main();
