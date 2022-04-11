@@ -1,3 +1,4 @@
+import { PRIORITY_NAME_MAP } from './type';
 import Table from 'cli-table';
 import Todo from './todo';
 
@@ -26,7 +27,7 @@ export const generateTable = (todos: Todo[]): Table => {
       todo.id,
       todo.title,
       todo.description,
-      todo.priority,
+      PRIORITY_NAME_MAP[todo.priority],
       todo.status,
       parseDate(todo.startDate),
       parseDate(todo.endDate),
