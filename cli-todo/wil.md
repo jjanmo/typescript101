@@ -58,15 +58,20 @@
 
   <br />
 
+---
+
 ## code 분석
 
 ### util 함수
 
 ```typescript
-export const checkIsValidEnumValue = (enumObject: any, value: number | string): boolean => {
+export const checkIsValidEnumValue = (
+  enumObject: any,
+  value: number | string
+): boolean => {
   return Object.keys(enumObject)
-    .filter(key => isNaN(Number(key)))
-    .some(key => enumObject[key] === value);
+    .filter((key) => isNaN(Number(key)))
+    .some((key) => enumObject[key] === value);
 };
 ```
 
@@ -105,7 +110,7 @@ enum State {
 
 > Korea의 경우 10이라는 값을 키값으로 불러오면 Korea라는 문자열을 출력한다. 이것이 이넘의 양뱡향 바인딩이다. 단, 이넘의 값으로 숫자를 할당할 때만 양방향 바인딩이 된다. 이넘의 값으로 문자열이 할당되면 단방향 바인딩만이 가능하다.
 
-> 여기서는 Korea에 숫자를 할당했기 때문에 거기서 자동으로 값이 자동으로 할당 및 증가하였지만 문자열인 경우는 다르다. 문자열을 할당하는 경우(enum State), 모두 초기화를 시켜줘야한다. 만약에 DELAY 속성의 경우 Enum member must have initializer. 과 같은 에러를 볼수 있다.
+> 여기서는 Korea에 숫자를 할당했기 때문에 거기서 자동으로 값이 자동으로 할당 및 증가하였지만 문자열인 경우는 다르다. 문자열을 할당하는 경우(enum State), 모두 초기화를 시켜줘야한다. 만약에 DELAY 속성의 경우 `Enum member must have initializer.` 과 같은 에러를 볼수 있다.
 
 ```typescript
 // example enum
@@ -116,10 +121,13 @@ enum SomeEnum {
   D,
 }
 
-export const checkIsValidEnumValue = (enumObject: any, value: number | string): boolean => {
+export const checkIsValidEnumValue = (
+  enumObject: any,
+  value: number | string
+): boolean => {
   return Object.keys(enumObject) // 1)
-    .filter(key => isNaN(Number(key))) // 2)
-    .some(key => enumObject[key] === value); // 3)
+    .filter((key) => isNaN(Number(key))) // 2)
+    .some((key) => enumObject[key] === value); // 3)
 };
 ```
 

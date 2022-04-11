@@ -1,7 +1,13 @@
-import { Command, CommandPrintTodos, CommandPrintTodo, CommandAddTodo, CommandDelete } from './command';
+import {
+  Command,
+  CommandPrintTodos,
+  CommandPrintTodo,
+  CommandAddTodo,
+  CommandDelete,
+} from './command';
 import { inputText } from './input';
 import Todo from './todo';
-import { Priority, Todos } from './type';
+import { AppState, Priority, Action } from './type';
 
 const commands: Command[] = [
   new CommandPrintTodos(),
@@ -11,23 +17,48 @@ const commands: Command[] = [
 ];
 
 async function main() {
-  let todos: Todos = [
-    new Todo('sample test1', 'This is sample test1', new Date('2021-09-19'), new Date('2021-09-20'), Priority.High),
-    new Todo('sample test2', 'This is sample test2', new Date('2021-09-20'), new Date('2021-09-21'), Priority.Medium),
-    new Todo('sample test3', 'This is sample test3', new Date('2021-09-20'), new Date('2021-09-22'), Priority.Low),
-  ];
+  let state: AppState = {
+    todos: [
+      new Todo(
+        'sample test1',
+        'This is sample test1',
+        new Date('2021-09-19'),
+        new Date('2021-09-20'),
+        Priority.High
+      ),
+    ],
+  };
 
   while (true) {
     console.clear();
-    commands.forEach(command => console.log(command.toString()));
+    commands.forEach((command) => console.log(command.toString()));
 
     console.log();
     const text = await inputText('원하는 명령을 입력하세요 : ');
     console.clear();
 
-    const command = commands.find(command => command.key === text);
+    const command = commands.find((command) => command.key === text);
     if (command) {
-      await command.run(todos);
+      const action = await command.run(state);
+      if (action) {
+        state = setAppState(action, state);
+      }
+    }
+  }
+}
+
+function setAppState(action: Action, state: AppState) {
+  switch (action.type) {
+    case 'new': {
+      const { title, description, startDate, endDate, priority } = action;
+
+      return {
+        ...state,
+        todos: [
+          ...state.todos,
+          new Todo(title, description, startDate, endDate, priority),
+        ],
+      };
     }
   }
 }
