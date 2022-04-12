@@ -65,7 +65,7 @@
 ### util 함수
 
 ```typescript
-export const checkIsValidEnumValue = (
+const checkIsValidEnumValue = (
   enumObject: any,
   value: number | string
 ): boolean => {
@@ -121,7 +121,7 @@ enum SomeEnum {
   D,
 }
 
-export const checkIsValidEnumValue = (
+const checkIsValidEnumValue = (
   enumObject: any,
   value: number | string
 ): boolean => {
@@ -140,13 +140,13 @@ export const checkIsValidEnumValue = (
 ### mapped type의 실제 사용
 
 ```ts
-export enum Priority {
+enum Priority {
   High,
   Medium,
   Low,
 }
 
-export const PRIORITY_NAME_MAP = {
+const PRIORITY_NAME_MAP = {
   [Priority.High]: '높음',
   [Priority.Medium]: '중간',
   [Priority.Low]: '낮음',
@@ -191,24 +191,50 @@ console.log(Object.keys(Priority)); // ["0", "1", "2", "High", "Medium", "Low"]
 
 이넘에 문자열로 초기화를 시켜주지 않으면 `양방향 바인딩`이 된다. 즉 Priority.High = 0, Priority[0] = 'High' 로서 표현할 수 있다. 또한 이넘 Priority의 키값을 출력해보면 `["0", "1", "2", "High", "Medium", "Low"]` 와 같다. 'High' 역시 이넘 Priority의 키값으로서 나타내어진다. 그렇기 때문에 위 코드에서 처럼 `[Priority[0]]: '높음'` 이렇게 표현한 것은 결국 `['High'] : '높음'` 과 동일한 표현이고 이는 정의한 타입에서 위배되지않기 때문에 타입 오류를 나타내지 않는 것이다.
 
-### discriminated unions의 사용
+### Discriminated Unions의 사용
+
+> 해석하자면 구별되어지는 유니온 타입을 말한다. 어떻게 유니온 타입을 통해서 타입을 구별할지를 나타내는 방법이라고 볼 수 있다. 코드로 보면 사실 어렵지 않은데 적재적소에 내가 스스로 사용할 수 있는가가 중요하다고 생각한다.
 
 ```ts
-export interface ActionNewTodo {
+interface ActionNewTodo {
   type: 'new';
   title: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  priority: Priority;
 }
-export interface ActionDeleteTodo {
+
+interface ActionDeleteTodo {
   type: 'delete';
-  range: 'one' | 'all';
   id: number;
 }
 
-export type Action = ActionNewTodo | ActionDeleteTodo;
+type Action = ActionNewTodo | ActionDeleteTodo;
 ```
 
-https://css-tricks.com/typescript-discriminated-unions/
+각각의 타입 안에는 `type`이라는 문자열 속성을 통해서 각각의 타입을 구분할 수 있게 하는 타입 시스템을 만드는 것을 `Discriminated Unions` 이라고 말할 수 있고, 실질적으로 `Discriminated Unions` 이라고 하는 것은 여기서 유니온 타입 `Action`을 말한다. 또한 이 타입 통해서 궁극적으로 하려고 하는 것은 type narrowing이라고 하는 타입의 범위를 좁혀서 타입을 보호(type guarding)하는 하나의 방식이라고 볼 수 있다. 아래는 실제로 활용하는 코드이다.
+
+```ts
+function setAppState(action: Action, state: AppState) {
+  switch (action.type) {
+    case 'new': {
+      //...
+      console.log(action.title); // 1)
+      return;
+    }
+    case 'delete': {
+      //...
+      console.log(action.id); // 2)
+      return;
+    }
+    default: {
+      return state;
+    }
+  }
+}
+```
+
+해당 코드에서 1)에서의 action의 타입이 무엇인지 2)에서의 action의 타입이 무엇인지를 안다면 위에서 말한 type narrowing에 대한 의미를 이해했다고 말할 수 있을 것이다.
+
+1. action: ActionNewTodo
+2. action: ActionDeleteTodo
+
+위 코드에서는 따로 각각 case마다 타입을 정의해주지 않았지만 자동적으로, 알아서,타입스크립트가 타입 추론을 하는 과정이 이루어졌다. 이러한 코드가 `discriminated unions을 활용한 것`이라고 할 수 있을 것이다.
+å
