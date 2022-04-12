@@ -22,8 +22,15 @@ async function main() {
       new Todo(
         'sample test1',
         'This is sample test1',
-        new Date('2021-09-19'),
-        new Date('2021-09-20'),
+        '2022-03-19',
+        '2022-03-20',
+        Priority.High
+      ),
+      new Todo(
+        'sample test1',
+        'This is sample test2',
+        '2022-03-20',
+        '2022-03-22',
         Priority.High
       ),
     ],

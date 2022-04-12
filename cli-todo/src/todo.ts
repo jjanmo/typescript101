@@ -16,8 +16,8 @@ export default class Todo {
   constructor(
     private _title: string,
     private _description: string,
-    private _startDate: Date,
-    private _endDate: Date,
+    private _startDate: string,
+    private _endDate: string,
     private _priority: Priority,
     private _status: TodoState = 'Todo',
     private _id: number = Todo.nextId

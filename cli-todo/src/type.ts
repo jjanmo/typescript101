@@ -23,8 +23,8 @@ export interface ActionNewTodo {
   type: 'new';
   title: string;
   description: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   priority: Priority;
 }
 export interface ActionDeleteTodo {

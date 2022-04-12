@@ -1,6 +1,7 @@
 import { PRIORITY_NAME_MAP } from './type';
 import Table from 'cli-table';
 import Todo from './todo';
+import dayjs from 'dayjs';
 
 // enum 객체에 해당하는 하는 값인지를 확인하는 유틸함수
 // -> 자세한 설명은 wil.md에서... 😎
@@ -29,8 +30,8 @@ export const generateTable = (todos: Todo[]): Table => {
       todo.description,
       PRIORITY_NAME_MAP[todo.priority],
       todo.status,
-      parseDate(todo.startDate),
-      parseDate(todo.endDate),
+      todo.startDate,
+      todo.endDate,
     ];
     table.push(row);
   });
@@ -40,14 +41,17 @@ export const generateTable = (todos: Todo[]): Table => {
 
 // 기본 날짜 구하기
 export const getDate = (dateString: string, isEnd: boolean = false) => {
-  if (dateString) {
-    return new Date(dateString);
-  } else {
-    const now = new Date();
-    const tomorrow = new Date(now.setDate(now.getDate() + 1));
+  dayjs.locale('ko');
 
-    return isEnd ? tomorrow : now;
-  }
+  const now = dayjs();
+  const nowText = `${now.year()}-${now.month() + 1}-${now.date()}`;
+
+  const tommorow = dayjs().add(1, 'day');
+  const tommorwText = `${tommorow.year()}-${
+    tommorow.month() + 1
+  }-${tommorow.date()}`; //
+
+  return isEnd ? tommorwText : nowText;
 };
 
 // 이넘키값으로 변환하기
