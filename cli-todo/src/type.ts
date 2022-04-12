@@ -27,5 +27,10 @@ export interface ActionNewTodo {
   endDate: Date;
   priority: Priority;
 }
+export interface ActionDeleteTodo {
+  type: 'delete';
+  range: 'one' | 'all';
+  id: number;
+}
 
-export type Action = ActionNewTodo;
+export type Action = ActionNewTodo | ActionDeleteTodo;
