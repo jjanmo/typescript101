@@ -136,3 +136,79 @@ export const checkIsValidEnumValue = (
 > 2). 여기서 우리는 value 값으로 숫자만을 받기 때문에 해당 숫자값이 이넘에 속한 값인지를 확인해야한다. 그렇기 때문에 위 배열에서 키값으로 숫자를 제거하는 것이다. (`이넘속성[문자열키값] = 숫자값` 이기 때문에)
 
 > 3). some() 을 통해서 해당하는 값이 있는지를 확인한다. 있기만 하면 true를 반환한다.
+
+### mapped type의 실제 사용
+
+```ts
+export enum Priority {
+  High,
+  Medium,
+  Low,
+}
+
+export const PRIORITY_NAME_MAP = {
+  [Priority.High]: '높음',
+  [Priority.Medium]: '중간',
+  [Priority.Low]: '낮음',
+};
+```
+
+위 코드는 이넘을 이용해서 이넘에 해당하는 값을 찍어주고 싶어서 이넘맵을 만든 코드이다. 이넘을 `매핑한다`라고 생각하면 된다. 위 코드 자체가 문제는 없지만 개선의 여지가 있다. 만약에 이넘이 추가 되었다고 가정을 한다면, 이와 동시에 아래 맵핑 코드에도 추가를 시켜줘야한다. 하지만 위의 코드에서는 그러한 디버깅을 자동적으로 해줄 수 있는 시스템이 없다. 이를 위해서 타입시스템을 이용할 수 있다.
+
+```ts
+const PRIORITY_NAME_MAP: { [key in Priority]: string } = {
+  [Priority.High]: '높음',
+  [Priority.Medium]: '중간',
+  [Priority.Low]: '낮음',
+};
+```
+
+`mapped type`을 이용하면 위와 같이 `PRIORITY_NAME_MAP`의 타입을 정의할 수 있다. 위 코드는 <u>해당 객체의 키값은 이넘 Priority의 키값에 속하는 값으로 순회하여서 만들어지는 타입</u>임을 나타낸다. 그렇기 때문에 이넘에 값이 추가되면 추가된 값에 대한 맵핑을 해줘야한다는 타입 오류 메세지를 출력한다.(아래는 오류 메세지)
+
+```
+Property '3' is missing in type '{ [x: string]: string; 0: string; 1: string; 2: string; }' but required in type '{ 0: string; 1: string; 2: string; 3: string; }'.
+```
+
+> 이처럼 실제로 mapped type을 정의함으로서 타입시스템을 실제로 어떻게 사용하는지, 어떠한 목적으로 사용할 수 있는지에 대해서 조금이나마 알 수 있는 코드인 것 같다.
+
+#### 이넘의 양방향 바인딩에 대해서 잠깐 살펴보자.
+
+> 유틸함수 파트에서 했던 내용과 중복되는 내용도 있다.
+
+```ts
+const PRIORITY_NAME_MAP: { [key in Priority]: string } = {
+  [Priority.High]: '높음',
+  [Priority.Medium]: '중간',
+  [Priority.Low]: '낮음',
+  [Priority[0]]: '높음', // *
+};
+
+// Priority의 키값 출력
+console.log(Object.keys(Priority)); // ["0", "1", "2", "High", "Medium", "Low"]
+```
+
+위 코드는 처음 보면 약간 특이하다고 생각할 수 있는 부분이다. `[Priority[0]]` 이런 식으로 작성했음에도 아무런 타입 오류가 나타나지 않는다.
+
+이넘에 문자열로 초기화를 시켜주지 않으면 `양방향 바인딩`이 된다. 즉 Priority.High = 0, Priority[0] = 'High' 로서 표현할 수 있다. 또한 이넘 Priority의 키값을 출력해보면 `["0", "1", "2", "High", "Medium", "Low"]` 와 같다. 'High' 역시 이넘 Priority의 키값으로서 나타내어진다. 그렇기 때문에 위 코드에서 처럼 `[Priority[0]]: '높음'` 이렇게 표현한 것은 결국 `['High'] : '높음'` 과 동일한 표현이고 이는 정의한 타입에서 위배되지않기 때문에 타입 오류를 나타내지 않는 것이다.
+
+### discriminated unions의 사용
+
+```ts
+export interface ActionNewTodo {
+  type: 'new';
+  title: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  priority: Priority;
+}
+export interface ActionDeleteTodo {
+  type: 'delete';
+  range: 'one' | 'all';
+  id: number;
+}
+
+export type Action = ActionNewTodo | ActionDeleteTodo;
+```
+
+https://css-tricks.com/typescript-discriminated-unions/

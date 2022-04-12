@@ -1,5 +1,13 @@
 # Typescript101
 
+<details>
+  <summary>🗒 Log</summary>
+  2022.04.12
+
+드디어 마무리 🙏 강의를 보고 미니프로젝트를 구현한지는 오래되었지만, 몇가지 남은 기능(삭제, 업데이트 기능)과 타입스크립트의 타입 시스템을 실제로 사용하는 부분에 대한 이해가 명쾌하지 않았다. 드디어 이 부분을 채우고 마무리 하게 되었다.
+
+</details>
+
 > Todo App을 만들면서 배우는 타입스크립트
 
 ## CLI Todo App
@@ -11,11 +19,11 @@
 - [x] Add(Create) todo
 - [x] Read todos : 전체 보기
 - [x] Read todo : 특정 할 일 보기
-- [ ] Update todo
-- [ ] Delete todos or todo
+- [x] Update todo
+- [x] Delete todos or todo
 
 ### Summary
 
-> 위 프로젝트를 통해서 까먹고 싶지 않은 내용들을 정리한다. 🔥
+> 위 프로젝트를 통해서 알게된 내용들을 정리한다. 🔥
 
-> [WIL](cli-todo/wil.md)
+> [What I Learned](cli-todo/wil.md)
