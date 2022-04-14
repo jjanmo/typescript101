@@ -33,4 +33,10 @@ export interface ActionDeleteTodo {
   id: number;
 }
 
-export type Action = ActionNewTodo | ActionDeleteTodo;
+export interface ActionEditTodo {
+  type: 'edit';
+  id: number;
+  data: Partial<Todo>;
+}
+
+export type Action = ActionNewTodo | ActionDeleteTodo | ActionEditTodo;
