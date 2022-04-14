@@ -240,4 +240,3 @@ function setAppState(action: Action, state: AppState) {
 2. action: ActionDeleteTodo
 
 위 코드에서는 따로 각각 case마다 타입을 정의해주지 않았지만 자동적으로, 알아서,타입스크립트가 타입 추론을 하는 과정이 이루어졌다. 이러한 코드가 `discriminated unions을 활용한 것`이라고 할 수 있을 것이다.
-å
